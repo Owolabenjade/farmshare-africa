@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Button } from '@/components/ui/Button'
-import { clsx } from 'clsx'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -23,7 +21,7 @@ export function Navigation() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-xl font-bold text-primary-600">
+              <Link href="/" className="text-xl font-bold text-green-600">
                 🌾 FarmShare Africa
               </Link>
             </div>
@@ -32,12 +30,11 @@ export function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={clsx(
-                    'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
+                  className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                     pathname === item.href
-                      ? 'border-primary-500 text-gray-900'
+                      ? 'border-green-500 text-gray-900'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                  )}
+                  }`}
                 >
                   {item.name}
                 </Link>
@@ -45,12 +42,12 @@ export function Navigation() {
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
-            <Button variant="outline" size="sm">
+            <button className="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
               Connect Wallet
-            </Button>
-            <Button size="sm">
+            </button>
+            <button className="bg-green-600 border border-transparent rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-green-700">
               Sign In
-            </Button>
+            </button>
           </div>
         </div>
       </div>
