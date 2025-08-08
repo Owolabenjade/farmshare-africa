@@ -1,87 +1,52 @@
-# FarmShare Africa
+# FarmShare Africa - Live Application
 
-Fractional farm investment platform on Hedera blockchain
+🌍 **Production URLs:**
+- **Frontend**: https://farmshare-africa.netlify.app
+- **Backend**: https://farmshare-africa-production.up.railway.app
+- **Smart Contracts**: Hedera Testnet (Contract ID: 0.0.6514484)
 
-## Overview
+## 🚀 Technology Stack
 
-FarmShare Africa democratizes agricultural investment by enabling fractional ownership of African farms through blockchain tokenization on the Hedera network.
+**Frontend:**
+- Next.js 14 (React Framework)
+- Tailwind CSS (Styling)
+- Radix UI (Components)
+- Deployed on Netlify
 
-## Project Structure
+**Backend:**
+- Node.js + Express
+- TypeScript
+- Deployed on Railway
 
-```
-farmshare-africa/
-├── packages/
-│   ├── contracts/     # Smart contracts (Hardhat + Solidity)
-│   ├── frontend/      # Next.js React application
-│   ├── backend/       # Node.js API server
-│   └── shared/        # Shared types and utilities
-├── docs/              # Documentation
-└── scripts/           # Deployment scripts
-```
+**Blockchain:**
+- Hedera Hashgraph
+- Smart Contracts in Solidity
+- Deployed on Hedera Testnet
 
-## Prerequisites
+## 🎯 Features
 
-- Node.js 18+
-- npm or yarn
-- Hedera testnet account
-- HashPack wallet (for frontend testing)
+- Browse available farms for investment
+- Fractional farm ownership through blockchain
+- Real-time investment tracking
+- Farmer onboarding system
+- Responsive design for all devices
 
-## Quick Start
+## 🔧 Local Development
 
 ```bash
-# Install all dependencies
-npm run install:all
-
 # Start all services
 npm run dev
 
-# Or start individually:
-npm run dev:contracts  # Hardhat node on :8545
-npm run dev:backend    # API server on :8000
-npm run dev:frontend   # Next.js app on :3000
-```
+# Individual services
+npm run dev:frontend   # http://localhost:3000
+npm run dev:backend    # http://localhost:8000
+npm run dev:contracts  # Hardhat node :8545
+📱 Usage
 
-## Development
+Visit the live application
+Browse available farms
+Connect wallet for investments
+Track your portfolio
+Support African agriculture!
 
-### Smart Contracts
-```bash
-cd packages/contracts
-npm run compile
-npm run test
-npm run deploy:testnet
-```
-
-### Frontend
-```bash
-cd packages/frontend
-npm run dev     # http://localhost:3000
-npm run build
-```
-
-### Backend
-```bash
-cd packages/backend
-npm run dev     # http://localhost:8000
-npm run build
-```
-
-## Testing
-
-```bash
-# Run all tests
-npm run test
-
-# Test specific package
-npm run test --workspace=packages/contracts
-```
-
-## Deployment
-
-- Smart Contract: [0.0.6514484 on HashScan](https://hashscan.io/testnet/contract/0xa21818c469dee8788c2a3c77b68817afd33aa5f3)
-- Network: Hedera Testnet
-
-## License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-Built with ❤️ for African agriculture and blockchain innovation.
+Built with ❤️ for sustainable African agriculture
