@@ -1,154 +1,157 @@
 'use client'
 
-import { useState, useCallback } from 'react'
-import { hederaClient } from '@/lib/hedera-client'
-import { useWallet } from './use-wallet'
+import { useState, useEffect } from 'react'
 
-export function useContract() {
-  const [isLoading, setIsLoading] = useState(false)
+interface Farm {
+  id: string
+  name: string
+  location: string
+  description: string
+  totalValue: number
+  availableShares: number
+  totalShares: number
+  pricePerShare: number
+  imageUrl?: string
+  farmerId: string
+  roi?: number
+  riskLevel?: string
+}
+
+interface ContractHook {
+  farms: Farm[]
+  loading: boolean
+  isLoading: boolean
+  error: string | null
+  fetchFarms: () => Promise<void>
+  getAllFarms: () => Promise<Farm[]>
+  getFarmDetails: (farmId: string) => Promise<Farm | null>
+  investInFarm: (farmId: string, shares: number) => Promise<{ success: boolean; transactionId?: string }>
+}
+
+export function useContract(): ContractHook {
+  const [farms, setFarms] = useState<Farm[]>([])
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const { accountId } = useWallet()
 
-  const createFarmToken = useCallback(async (farmData: {
-    name: string
-    totalSupply: number
-    tokenPrice: number
-    expectedReturn: number
-    harvestDate: Date
-  }) => {
-    if (!accountId) {
-      throw new Error('Wallet not connected')
-    }
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
-    setIsLoading(true)
+  const fetchFarms = async () => {
+    setLoading(true)
     setError(null)
-
+    
     try {
-      const result = await hederaClient.createFarmToken(
-        farmData.name,
-        farmData.totalSupply,
-        farmData.tokenPrice,
-        farmData.expectedReturn,
-        Math.floor(farmData.harvestDate.getTime() / 1000)
-      )
-
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to create farm token')
+      const response = await fetch(`${API_URL}/api/farms`)
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch farms: ${response.statusText}`)
       }
-
-      return result
+      
+      const farmsData = await response.json()
+      setFarms(farmsData)
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch farms'
       setError(errorMessage)
-      throw err
+      console.error('Error fetching farms:', err)
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
-  }, [accountId])
+  }
 
-  const purchaseTokens = useCallback(async (
-    farmId: number,
-    tokenAmount: number,
-    totalCost: number
-  ) => {
-    if (!accountId) {
-      throw new Error('Wallet not connected')
-    }
-
-    setIsLoading(true)
+  const getAllFarms = async (): Promise<Farm[]> => {
+    setLoading(true)
     setError(null)
-
+    
     try {
-      const result = await hederaClient.purchaseTokens(farmId, tokenAmount, totalCost)
-
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to purchase tokens')
+      const response = await fetch(`${API_URL}/api/farms`)
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch farms: ${response.statusText}`)
       }
-
-      return result
+      
+      const farmsData = await response.json()
+      setFarms(farmsData)
+      return farmsData
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch farms'
       setError(errorMessage)
-      throw err
+      console.error('Error fetching farms:', err)
+      return []
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
-  }, [accountId])
+  }
 
-  const getFarmDetails = useCallback(async (farmId: number) => {
-    setIsLoading(true)
+  const getFarmDetails = async (farmId: string): Promise<Farm | null> => {
+    setLoading(true)
     setError(null)
-
+    
     try {
-      const result = await hederaClient.getFarmDetails(farmId)
-
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to get farm details')
+      const response = await fetch(`${API_URL}/api/farms/${farmId}`)
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch farm details: ${response.statusText}`)
       }
-
-      return result.data
+      
+      const farmData = await response.json()
+      return farmData
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch farm details'
       setError(errorMessage)
-      throw err
+      console.error('Error fetching farm details:', err)
+      return null
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
-  }, [])
+  }
 
-  const getUserTokenBalance = useCallback(async (farmId: number) => {
-    if (!accountId) {
-      return { success: false, balance: 0 }
-    }
-
-    setIsLoading(true)
+  const investInFarm = async (farmId: string, shares: number): Promise<{ success: boolean; transactionId?: string }> => {
+    setLoading(true)
     setError(null)
-
+    
     try {
-      const result = await hederaClient.getUserTokenBalance(accountId, farmId)
-
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to get token balance')
+      const response = await fetch(`${API_URL}/api/invest`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          farmId,
+          shares,
+          amount: shares * 100 // Assuming $100 per share
+        })
+      })
+      
+      if (!response.ok) {
+        throw new Error(`Investment failed: ${response.statusText}`)
       }
-
-      return result
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error'
-      setError(errorMessage)
-      throw err
-    } finally {
-      setIsLoading(false)
-    }
-  }, [accountId])
-
-  const getAllFarms = useCallback(async () => {
-    setIsLoading(true)
-    setError(null)
-
-    try {
-      const result = await hederaClient.getAllFarms()
-
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to get farms')
+      
+      const result = await response.json()
+      return {
+        success: true,
+        transactionId: result.transactionId
       }
-
-      return result.farms
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+      const errorMessage = err instanceof Error ? err.message : 'Investment failed'
       setError(errorMessage)
-      throw err
+      console.error('Error investing in farm:', err)
+      return { success: false }
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
+  }
+
+  useEffect(() => {
+    fetchFarms()
   }, [])
 
   return {
-    isLoading,
+    farms,
+    loading,
+    isLoading: loading, // Alias for compatibility
     error,
-    createFarmToken,
-    purchaseTokens,
+    fetchFarms,
+    getAllFarms,
     getFarmDetails,
-    getUserTokenBalance,
-    getAllFarms
+    investInFarm
   }
 }

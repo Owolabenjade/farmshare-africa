@@ -14,7 +14,9 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'https://*.netlify.app',
-    'https://farmshare-africa.netlify.app'
+    'https://farmshare-africa.netlify.app',
+    'https://6896409c8a765a7a599d0d22--farmshare-africa.netlify.app',
+    'https://689640f58a765a7b829d0cb9--farmshare-africa.netlify.app'
   ],
   credentials: true
 }));
@@ -92,7 +94,6 @@ app.get('/api/farms', (req, res) => {
 // Get single farm
 app.get('/api/farms/:id', (req, res) => {
   const { id } = req.params;
-  // Mock farm data - in production this would come from a database
   const farm = {
     id,
     name: 'Green Valley Coffee Farm',
@@ -115,7 +116,6 @@ app.get('/api/farms/:id', (req, res) => {
 app.post('/api/invest', (req, res) => {
   const { farmId, shares, amount } = req.body;
   
-  // Mock investment response
   res.json({
     success: true,
     transactionId: `tx_${Date.now()}`,
