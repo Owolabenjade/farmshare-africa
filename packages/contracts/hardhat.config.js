@@ -1,10 +1,10 @@
 require("@nomicfoundation/hardhat-toolbox");
-require("dotenv").config();
+require("dotenv").config({ path: "../../.env" });
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
-    version: "0.8.20",
+    version: "0.8.19",
     settings: {
       optimizer: {
         enabled: true,
@@ -13,19 +13,18 @@ module.exports = {
     },
   },
   networks: {
-    "hedera-testnet": {
-      url: "https://testnet.hashio.io/api",
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
-      chainId: 296,
-      gas: 3000000,
-      gasPrice: 10000000000, // 10 gwei
+    hardhat: {
+      chainId: 1337,
     },
-    "hedera-mainnet": {
+    testnet: {
+      url: "https://testnet.hashio.io/api",
+      accounts: process.env.HEDERA_PRIVATE_KEY ? [process.env.HEDERA_PRIVATE_KEY] : [],
+      chainId: 296,
+    },
+    mainnet: {
       url: "https://mainnet.hashio.io/api",
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      accounts: process.env.HEDERA_PRIVATE_KEY ? [process.env.HEDERA_PRIVATE_KEY] : [],
       chainId: 295,
-      gas: 3000000,
-      gasPrice: 10000000000,
     },
   },
   paths: {
@@ -33,5 +32,5 @@ module.exports = {
     tests: "./test",
     cache: "./cache",
     artifacts: "./artifacts"
-  }
+  },
 };

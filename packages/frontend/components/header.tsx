@@ -1,33 +1,35 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Sprout } from 'lucide-react'
 
 export function Header() {
   return (
     <header className="border-b bg-white">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Sprout className="h-8 w-8 text-green-600" />
-            <span className="text-xl font-bold text-gray-900">FarmShare Africa</span>
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <Link href="/" className="text-2xl font-bold text-green-600">
+          FarmShare Africa
+        </Link>
+        <nav className="hidden md:flex items-center space-x-6">
+          <Link href="/dashboard" className="text-gray-600 hover:text-gray-900">
+            Farms
           </Link>
-          
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="/dashboard" className="text-gray-600 hover:text-gray-900">
-              Invest
+          <Link href="/farmers" className="text-gray-600 hover:text-gray-900">
+            For Farmers
+          </Link>
+          <Link href="/about" className="text-gray-600 hover:text-gray-900">
+            About
+          </Link>
+        </nav>
+        <div className="flex items-center space-x-4">
+          <Button asChild variant="outline">
+            <Link href="/signin">
+              Sign In
             </Link>
-            <Link href="/farmers" className="text-gray-600 hover:text-gray-900">
-              List Farm
+          </Button>
+          <Button asChild>
+            <Link href="/farmers">
+              Get Started
             </Link>
-            <Link href="/about" className="text-gray-600 hover:text-gray-900">
-              About
-            </Link>
-          </nav>
-          
-          <div className="flex items-center gap-4">
-            <Button variant="outline">Sign In</Button>
-            <Button className="bg-green-600 hover:bg-green-700">Get Started</Button>
-          </div>
+          </Button>
         </div>
       </div>
     </header>

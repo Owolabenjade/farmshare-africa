@@ -12,12 +12,24 @@
   },
   "dependencies": {
     "@hashgraph/sdk": "^2.27.0",
-    "@hashgraph/hardhat-hethers": "^1.0.3"
+    "ethers": "^6.14.0"
   },
   "devDependencies": {
-    "hardhat": "^2.17.0",
-    "@nomiclabs/hardhat-ethers": "^2.2.3",
-    "@typechain/hardhat": "^6.1.6",
+    "hardhat": "^2.19.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^20.0.0",
+    "chai": "^4.2.0",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solidity-coverage": "^0.8.1",
+    "typechain": "^8.3.0",
     "typescript": "^5.1.6"
   }
 }

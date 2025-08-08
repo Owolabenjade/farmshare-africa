@@ -1,44 +1,56 @@
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Sprout, TrendingUp } from 'lucide-react'
+import { ArrowRight, Leaf, Users, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-emerald-50 py-20 sm:py-32">
-      <div className="absolute inset-0 bg-[url('/african-farm-landscape.png')] bg-cover bg-center opacity-5" />
-      
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-8 flex justify-center">
-            <div className="flex items-center gap-2 rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-800">
-              <Sprout className="h-4 w-4" />
-              Blockchain-Powered Agriculture
-            </div>
+    <section className="relative py-20 bg-gradient-to-br from-green-50 to-blue-50">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            Invest in Africa's
+            <span className="text-green-600"> Agricultural Future</span>
+          </h1>
+          <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+            Buy fractional shares in verified African farms through blockchain technology. 
+            Support sustainable agriculture while earning returns.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button asChild size="lg">
+              <Link href="/dashboard" className="inline-flex items-center">
+                Explore Farms
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/about">
+                Learn More
+              </Link>
+            </Button>
           </div>
           
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Invest in African Farms,
-            <span className="text-green-600"> Earn from Harvests</span>
-          </h1>
-          
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            FarmShare Africa enables fractional ownership of African farms through blockchain tokenization. 
-            Farmers raise capital while investors earn returns from harvest proceeds.
-          </p>
-          
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link href="/dashboard">
-              <Button size="lg" className="bg-green-600 hover:bg-green-700">
-                Start Investing
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/farmers">
-              <Button variant="outline" size="lg">
-                <TrendingUp className="mr-2 h-4 w-4" />
-                List Your Farm
-              </Button>
-            </Link>
+          <div className="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div className="text-center">
+              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Leaf className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Sustainable</h3>
+              <p className="text-gray-600">Supporting eco-friendly farming practices</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Community</h3>
+              <p className="text-gray-600">Connecting global investors with local farmers</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="h-8 w-8 text-purple-600" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Profitable</h3>
+              <p className="text-gray-600">Transparent returns based on farm performance</p>
+            </div>
           </div>
         </div>
       </div>
