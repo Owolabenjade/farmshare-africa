@@ -1,0 +1,15 @@
+{
+  "name": "@farmshare/shared",
+  "version": "1.0.0",
+  "description": "Shared types and utilities for FarmShare Africa",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist node_modules"
+  },
+  "dependencies": {
+    "typescript": "^5.1.6"
+  }
+}

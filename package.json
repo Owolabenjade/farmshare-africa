@@ -2,30 +2,40 @@
   "name": "farmshare-africa",
   "version": "1.0.0",
   "description": "Fractional farm investment platform on Hedera blockchain",
+  "main": "index.js",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:contracts\" \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:contracts": "cd packages/contracts && npm run node",
-    "dev:backend": "cd packages/backend && npm run dev",
-    "dev:frontend": "cd packages/frontend && npm run dev",
-    "build": "npm run build:contracts && npm run build:backend && npm run build:frontend",
-    "build:contracts": "cd packages/contracts && npm run compile",
-    "build:backend": "cd packages/backend && npm run build",
-    "build:frontend": "cd packages/frontend && npm run build",
-    "test": "cd packages/contracts && npm run test",
-    "deploy:testnet": "cd packages/contracts && npm run deploy:testnet",
     "install:all": "npm install && npm run install:packages",
-    "install:packages": "cd packages/contracts && npm install && cd ../backend && npm install && cd ../frontend && npm install && cd ../shared && npm install",
-    "clean": "rm -rf node_modules packages/*/node_modules",
-    "setup": "npm run clean && npm install && npm run install:packages"
+    "install:packages": "npm install --workspaces",
+    "dev": "concurrently \"npm run dev:contracts\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:contracts": "npm run dev --workspace=packages/contracts",
+    "dev:backend": "npm run dev --workspace=packages/backend", 
+    "dev:frontend": "npm run dev --workspace=packages/frontend",
+    "build": "npm run build --workspaces",
+    "build:frontend": "npm run build --workspace=packages/frontend",
+    "build:backend": "npm run build --workspace=packages/backend",
+    "test": "npm run test --workspaces",
+    "deploy:testnet": "npm run deploy:testnet --workspace=packages/contracts",
+    "lint": "npm run lint --workspaces",
+    "clean": "npm run clean --workspaces && rm -rf node_modules"
   },
-  "keywords": ["blockchain", "agriculture", "defi", "hedera", "investment", "africa"],
-  "author": "FarmShare Africa Team",
+  "keywords": [
+    "blockchain",
+    "hedera",
+    "agriculture",
+    "defi",
+    "tokenization"
+  ],
+  "author": "Owolabenjade",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
